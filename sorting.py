@@ -30,8 +30,11 @@ for file in files:
     movie_name1 = a1
     print("The movie name is: " + movie_name1)
 
-    confirmTitle = input("What is your preffered film title for the search: " + "\n" + movie_name1 + "\nEnter with +: " )
-
+    confirmTitle = input("What is your preffered film title for the search: " + "\n" + movie_name1 + "\nEnter with + (enter to skip): " )
+    
+    if confirmTitle == "":
+        continue
+        
     # Search movie on IMDB and get its details 
     # url = 'https://www.imdb.com/find?ref_=nv_sr_fn&q=' + movie_name + '&s=all'
     url = 'http://www.omdbapi.com/?apikey=a34d4e1f&t=' + confirmTitle
@@ -46,6 +49,9 @@ for file in files:
 
         # Ask user to confirm correct film with a URL 
         imdbUrl = "https://www.imdb.com/title/" + data['imdbID'] + "/"
+        print("The film title is: ", data['Title'])
+        print("\nThe release year is: ", data['Year'])
+        print("\nThe director is: ", data['Director'])
         confirmMovie = input("Please confirm if this is the correct film by visiting this URL: " + imdbUrl + "\nEnter y/n: " )
         url = 'http://www.omdbapi.com/?apikey=a34d4e1f&t=' + movie_name1
         response = requests.get(url)
@@ -83,7 +89,7 @@ for file in files:
                 os.chdir(folder_path)
 
         else:
-            print('Movie confirmed!')
+            print('Film confirmed!')
                         
             # Get director name and release year from response
             director_name = data['Director']
@@ -111,4 +117,5 @@ for file in files:
                 os.chdir(folder_path)
                 
 print("Moved %s to %s" % (file, dir_structure))  
+
 
