@@ -111,3 +111,4 @@ Upon confirmation, the script will sort and rename the file accordingly.
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
