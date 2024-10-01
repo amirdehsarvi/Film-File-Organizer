@@ -41,38 +41,39 @@ In the **Interactive Mode**, the script will:
 
 Given a folder with the following files:
 
-\`\`\`
+```
 
 /Film File Organizer
     ├── /Unsorted
-    │   ├── random_film_1.mp4
-    │   ├── another_movie.mkv
-    │   └── yet_another.avi
+    │   ├── random_website_1993_sch_list.mp4
+    │   ├── another_telegram_channel_munich2005.mkv
+    │   └── 2017_Dunkirk.avi
     
-\`\`\`
+```
 
 After running the script and confirming the details, the structure will be reorganized to:
 
-\`\`\`
+```
 
-├── /Sorted
+/Film File Organizer
+  ├── /Sorted
     │   ├── Steven Spielberg
     │   │   ├── 1993 - Schindler's List
-    │   │   │   └── SchindlersList.mp4
+    │   │   │   └── Schindler's List.mp4
     │   │   └── 2005 - Munich
     │   │       └── Munich.mp4
     │   ├── Quentin Tarantino
     │   │   ├── 1994 - Pulp Fiction
     │   │   │   └── PulpFiction.mkv
     │   │   └── 2009 - Inglourious Basterds
-    │   │       └── InglouriousBasterds.mkv
+    │   │       └── Inglourious Basterds.mkv
     │   └── Christopher Nolan
     │       ├── 2010 - Inception
     │       │   └── Inception.mp4
     │       └── 2017 - Dunkirk
     │           └── Dunkirk.mp4
     
-\`\`\`
+```
 
 ### Automatic Mode
 
@@ -80,29 +81,6 @@ In **Automatic Mode**, the script will run without user input, using the first s
 
 1. **Automatically Searches for IMDb Data**: Uses the file name to search IMDb.
 2. **File Sorting and Renaming**: Organizes and renames the files in the same way as the interactive mode but without confirmation prompts.
-
-#### Example
-
-Using the same folder structure:
-
-\`\`\`
-/Unsorted/
-    ├── random_film_1.mp4
-    ├── another_movie.mkv
-    ├── yet_another.avi
-\`\`\`
-
-The script will automatically sort and rename the files based on the first IMDb result, producing:
-
-\`\`\`
-/Sorted/
-    ├── Christopher Nolan/
-    │   ├── 2010 - Inception/
-    │   │   └── Inception.mp4
-    ├── Martin Scorsese/
-    │   ├── 2006 - The Departed/
-    │   │   └── TheDeparted.mkv
-\`\`\`
 
 ### Running the Scripts
 
