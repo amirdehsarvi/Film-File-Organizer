@@ -34,7 +34,7 @@ In the **Interactive Mode**, the script will:
 
 1. **Search for IMDb Data**: Fetch details for each film file from IMDb.
 2. **Prompt for Confirmation**: Ask the user to confirm the fetched details (title, director, year). The user can input alternative titles or IMDb IDs if needed.
-3. **File Sorting**: Organize the files into directories following the structure: `/Director/ReleaseYear - Title/FilmFile`.
+3. **File Sorting**: Organize the files into directories following the structure: `/Director/ReleaseYear - Title/Film File`.
 4. **File Renaming**: Rename the file based on its IMDb title.
 
 #### Example
