@@ -42,15 +42,18 @@ In the **Interactive Mode**, the script will:
 Given a folder with the following files:
 
 \`\`\`
+
 /Unsorted/
     ├── random_film_1.mp4
     ├── another_movie.mkv
     ├── yet_another.avi
+
 \`\`\`
 
 After running the script and confirming the details, the structure will be reorganized to:
 
 \`\`\`
+
 /Sorted/
     ├── Steven Spielberg/
     │   ├── 1993 - Schindler's List/
@@ -58,6 +61,7 @@ After running the script and confirming the details, the structure will be reorg
     ├── Quentin Tarantino/
     │   ├── 1994 - Pulp Fiction/
     │   │   └── PulpFiction.mkv
+    
 \`\`\`
 
 ### Automatic Mode
