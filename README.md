@@ -43,24 +43,34 @@ Given a folder with the following files:
 
 \`\`\`
 
-/Unsorted/
-    ├── random_film_1.mp4
-    ├── another_movie.mkv
-    ├── yet_another.avi
-
+/Film File Organizer
+    ├── /Unsorted
+    │   ├── random_film_1.mp4
+    │   ├── another_movie.mkv
+    │   └── yet_another.avi
+    
 \`\`\`
 
 After running the script and confirming the details, the structure will be reorganized to:
 
 \`\`\`
 
-/Sorted/
-    ├── Steven Spielberg/
-    │   ├── 1993 - Schindler's List/
-    │   │   └── SchindlersList.mp4
-    ├── Quentin Tarantino/
-    │   ├── 1994 - Pulp Fiction/
-    │   │   └── PulpFiction.mkv
+├── /Sorted
+    │   ├── Steven Spielberg
+    │   │   ├── 1993 - Schindler's List
+    │   │   │   └── SchindlersList.mp4
+    │   │   └── 2005 - Munich
+    │   │       └── Munich.mp4
+    │   ├── Quentin Tarantino
+    │   │   ├── 1994 - Pulp Fiction
+    │   │   │   └── PulpFiction.mkv
+    │   │   └── 2009 - Inglourious Basterds
+    │   │       └── InglouriousBasterds.mkv
+    │   └── Christopher Nolan
+    │       ├── 2010 - Inception
+    │       │   └── Inception.mp4
+    │       └── 2017 - Dunkirk
+    │           └── Dunkirk.mp4
     
 \`\`\`
 
