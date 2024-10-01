@@ -22,9 +22,9 @@ This repository contains two Python scripts that help you automatically sort and
 
 To install the necessary dependencies, run:
 
-\`\`\`bash
+```
 pip install IMDbPY
-\`\`\`
+```
 
 ## Usage
 
