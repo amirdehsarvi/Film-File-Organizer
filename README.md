@@ -91,12 +91,12 @@ In **Automatic Mode**, the script will run without user input, using the first s
 
 For each film in **Interactive Mode**, the script will display the IMDb data retrieved:
 
-\`\`\`
+```
 Title: Schindler's List
 Director: Steven Spielberg
 Release Year: 1993
 Is this correct? [Y/n]:
-\`\`\`
+```
 
 Upon confirmation, the script will sort and rename the file accordingly.
 
