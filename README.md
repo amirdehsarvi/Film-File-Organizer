@@ -5,7 +5,7 @@ This repository contains two Python scripts that help you automatically sort and
 
 ## Features
 
-- **Automatic File Sorting**: Sorts your film files into directories by `/Director/ReleaseYear - Title/FilmFile`.
+- **Automatic File Sorting**: Sorts your film files into directories by `/Director/ReleaseYear - Title/Film File`.
 - **Multi-Format Support**: Works with a variety of film file formats including `.mp4`, `.mkv`, `.avi`, and more.
 - **IMDB Integration**: Fetches relevant movie details (director, title, release year) from the IMDB database to ensure accurate sorting.
 - **File Renaming**: Renames the movie file to its official IMDb title while retaining the original file extension.
