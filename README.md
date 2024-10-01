@@ -45,8 +45,8 @@ Given a folder with the following files:
 
 /Film File Organizer
     ├── /Unsorted
-    │   ├── random_website_1993_sch_list.mp4
-    │   ├── another_telegram_channel_munich2005.mkv
+    │   ├── random_website_1993_sch_list.mkv
+    │   ├── another_telegram_channel_munich2005.mp4
     │   └── 2017_Dunkirk.avi
     
 ```
@@ -59,7 +59,7 @@ After running the script and confirming the details, the structure will be reorg
   ├── /Sorted
     │   ├── Steven Spielberg
     │   │   ├── 1993 - Schindler's List
-    │   │   │   └── Schindler's List.mp4
+    │   │   │   └── Schindler's List.mkv
     │   │   └── 2005 - Munich
     │   │       └── Munich.mp4
     │   ├── Quentin Tarantino
@@ -71,7 +71,7 @@ After running the script and confirming the details, the structure will be reorg
     │       ├── 2010 - Inception
     │       │   └── Inception.mp4
     │       └── 2017 - Dunkirk
-    │           └── Dunkirk.mp4
+    │           └── Dunkirk.avi
     
 ```
 
