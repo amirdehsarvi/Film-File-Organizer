@@ -1,5 +1,6 @@
 import os
 import re
+# pip install imdby
 from imdb import IMDb
 import readline
 import glob
