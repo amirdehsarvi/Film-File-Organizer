@@ -84,6 +84,9 @@ folder_path = input("Please enter the folder path (tab to auto-complete): ")
 # Get list of all files in the folder and subfolders
 files = get_all_files(folder_path)
 
+# Sort files by filename
+files.sort()
+
 # Iterate through each file in the folder
 for file in files:
     if os.path.basename(file).startswith('.'):
