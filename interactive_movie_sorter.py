@@ -128,4 +128,4 @@ for file in files:
 
 print("Organization complete.")
 
-# /Volumes/AJ4/IMDB8
+# /Users/isd_neuroimaging/Downloads/Watched
