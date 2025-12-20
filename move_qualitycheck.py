@@ -162,5 +162,5 @@ def main():
 if __name__ == "__main__":
     main()
 
-# /Volumes/Films/Organised/
+# /Volumes/Films/WatchedOrganised/
 # /Volumes/Films/AJ/
