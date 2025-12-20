@@ -103,7 +103,29 @@ def process_folders(source_folder, destination_root):
                     except subprocess.CalledProcessError as e:
                         print(f"Error moving {filename} or SRT files: {e}")
             else:
-                print(f"Destination folder {dest_folder} does not exist. Skipping {filename}.")
+                # Destination folder doesn't exist - create it and move the file
+                print(f"Creating new destination folder: {dest_folder}")
+                try:
+                    os.makedirs(dest_folder, exist_ok=True)
+                    dest_filepath = os.path.join(dest_folder, filename)
+                    
+                    subprocess.run(
+                        ["rsync", "-av", "--remove-source-files", source_filepath, dest_filepath],
+                        check=True,
+                    )
+                    print(f"Moved {filename} to new folder {dest_folder}.")
+
+                    base_filename = os.path.splitext(filename)[0]
+                    source_srt_files = find_srt_files(source_folder, base_filename)
+
+                    for srt_file in source_srt_files:
+                        subprocess.run(
+                            ["rsync", "-av", "--remove-source-files", srt_file, dest_folder],
+                            check=True,
+                        )
+                        print(f"Moved SRT file for {filename}.")
+                except (subprocess.CalledProcessError, OSError) as e:
+                    print(f"Error creating folder or moving {filename}: {e}")
 
 def main():
     source_root = input("Enter the source root folder: ")
