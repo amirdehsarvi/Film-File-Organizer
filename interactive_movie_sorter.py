@@ -365,4 +365,4 @@ for root, dirs, files in os.walk(folder_path, topdown=False):
 
 print("\nOrganization complete.")
 
-# /Volumes/Films/WatchedOrganised/
+# /Volumes/Films/watchedorganise/
