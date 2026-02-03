@@ -1,15 +1,22 @@
 #!/usr/bin/env python3
 """
-Merge /Volumes/Films/ToOrganise/ into /Volumes/Films/AJ/
-and remove the source folder after successful rsync completion.
+Merge folders and remove the source folder after successful rsync completion.
+Allows user to choose between default paths or custom source/destination.
 """
 
 import os
 import subprocess
 import shutil
 
-SOURCE = "/Volumes/Films/ToOrganise/"
-DESTINATION = "/Volumes/Films/AJ/"
+# Default paths
+DEFAULT_SOURCE = "/Volumes/Films/ToOrganise/"
+DEFAULT_DESTINATION = "/Volumes/Films/AJ/"
+CUSTOM_SOURCE = "/Volumes/AJ4/Downloads"
+CUSTOM_DESTINATION = "/Volumes/Films/Not Watched Yet"
+
+SOURCE = DEFAULT_SOURCE
+DESTINATION = DEFAULT_DESTINATION
+DELETE_SOURCE = False  # Track whether we should delete the source folder
 
 def check_paths_exist():
     """Verify both source and destination paths exist"""
@@ -76,8 +83,32 @@ def verify_merge():
     
     return True  # Allow cleanup even if counts differ
 
-def cleanup_source(skip_confirm=False):
-    """Remove the source folder after successful merge"""
+def cleanup_source(skip_confirm=False, delete_source=False):
+    """Remove the source folder after successful merge (only if specified)"""
+    if not delete_source:
+        # For default path: delete contents but keep the folder
+        print(f"\n{'='*60}")
+        print("Cleaning up source folder contents...")
+        print(f"{'='*60}")
+        
+        try:
+            for item in os.listdir(SOURCE):
+                item_path = os.path.join(SOURCE, item)
+                if os.path.isdir(item_path):
+                    shutil.rmtree(item_path)
+                    print(f"✓ Removed folder: {item}")
+                else:
+                    os.remove(item_path)
+                    print(f"✓ Removed file: {item}")
+            
+            print(f"\n✓ Successfully emptied {SOURCE}")
+            print(f"  (Main folder kept for reuse)")
+            return True
+        except Exception as e:
+            print(f"✗ Error cleaning up source folder: {e}")
+            return False
+    
+    # For custom paths: delete entire source folder
     print(f"\n{'='*60}")
     print("Cleaning up source folder...")
     print(f"{'='*60}")
@@ -98,9 +129,55 @@ def cleanup_source(skip_confirm=False):
         print(f"✗ Error removing source folder: {e}")
         return False
 
+def get_user_paths():
+    """Ask user to choose between default and custom paths"""
+    print(f"\n{'='*60}")
+    print("Path Selection")
+    print(f"{'='*60}")
+    print("\nOptions:")
+    print(f"1. Default: {DEFAULT_SOURCE} → {DEFAULT_DESTINATION}")
+    print(f"   (Contents deleted, folder kept for reuse)")
+    print(f"\n2. Custom: {CUSTOM_SOURCE} → {CUSTOM_DESTINATION}")
+    print(f"   (Entire source folder deleted after merge)")
+    print(f"\n3. Manual: Enter custom paths")
+    
+    choice = input("\nEnter your choice (1/2/3): ").strip()
+    
+    if choice == '1':
+        return DEFAULT_SOURCE, DEFAULT_DESTINATION, False
+    elif choice == '2':
+        return CUSTOM_SOURCE, CUSTOM_DESTINATION, True
+    elif choice == '3':
+        source = input("Enter source path: ").strip().strip('"\'')
+        source = os.path.expanduser(source)
+        if not source.endswith('/'):
+            source += '/'
+        
+        destination = input("Enter destination path: ").strip().strip('"\'')
+        destination = os.path.expanduser(destination)
+        if not destination.endswith('/'):
+            destination += '/'
+        
+        delete = input("Delete source folder after merge? (yes/no): ").strip().lower() == 'yes'
+        return source, destination, delete
+    else:
+        print("✗ Invalid choice, using default")
+        return DEFAULT_SOURCE, DEFAULT_DESTINATION, False
+
 def main(skip_confirm=False):
     """Main function to merge folders. Set skip_confirm=True for non-interactive use."""
-    print("Film File Merger - Merge ToOrganise into AJ\n")
+    global SOURCE, DESTINATION, DELETE_SOURCE
+    
+    print("Film File Merger - Merge folders\n")
+    
+    # Step 0: Get paths from user
+    SOURCE, DESTINATION, DELETE_SOURCE = get_user_paths()
+    
+    print(f"\n{'='*60}")
+    print(f"Source: {SOURCE}")
+    print(f"Destination: {DESTINATION}")
+    print(f"Delete source: {DELETE_SOURCE}")
+    print(f"{'='*60}")
     
     # Step 1: Verify paths exist
     if not check_paths_exist():
@@ -129,9 +206,10 @@ def main(skip_confirm=False):
     verify_merge()
     
     # Step 6: Cleanup source
-    if not cleanup_source(skip_confirm=skip_confirm):
+    if not cleanup_source(skip_confirm=skip_confirm, delete_source=DELETE_SOURCE):
         print("\n⚠ Merge completed but source folder was not removed")
-        print("You can manually remove it later or re-run this script")
+        if DELETE_SOURCE:
+            print("You can manually remove it later or re-run this script")
         return False
     
     print(f"\n{'='*60}")
