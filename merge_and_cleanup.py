@@ -1,15 +1,14 @@
 #!/usr/bin/env python3
 """
-Merge /Volumes/Films/watchedorganise/ into /Volumes/Films/AJ/
+Merge /Volumes/Films/ToOrganise/ into /Volumes/Films/AJ/
 and remove the source folder after successful rsync completion.
 """
 
 import os
 import subprocess
 import shutil
-import sys
 
-SOURCE = "/Volumes/Films/watchedorganise/"
+SOURCE = "/Volumes/Films/ToOrganise/"
 DESTINATION = "/Volumes/Films/AJ/"
 
 def check_paths_exist():
@@ -77,18 +76,19 @@ def verify_merge():
     
     return True  # Allow cleanup even if counts differ
 
-def cleanup_source():
+def cleanup_source(skip_confirm=False):
     """Remove the source folder after successful merge"""
     print(f"\n{'='*60}")
     print("Cleaning up source folder...")
     print(f"{'='*60}")
     
     # Double-check before deletion
-    response = input(f"Remove {SOURCE}? (yes/no): ").strip().lower()
-    
-    if response != 'yes':
-        print("✗ Cleanup cancelled")
-        return False
+    if not skip_confirm:
+        response = input(f"Remove {SOURCE}? (yes/no): ").strip().lower()
+        
+        if response != 'yes':
+            print("✗ Cleanup cancelled")
+            return False
     
     try:
         shutil.rmtree(SOURCE)
@@ -98,12 +98,13 @@ def cleanup_source():
         print(f"✗ Error removing source folder: {e}")
         return False
 
-def main():
-    print("Film File Merger - Merge watchedorganise into AJ\n")
+def main(skip_confirm=False):
+    """Main function to merge folders. Set skip_confirm=True for non-interactive use."""
+    print("Film File Merger - Merge ToOrganise into AJ\n")
     
     # Step 1: Verify paths exist
     if not check_paths_exist():
-        sys.exit(1)
+        raise RuntimeError("Paths do not exist")
     
     # Step 2: Show initial file counts
     source_files = count_files(SOURCE)
@@ -111,30 +112,32 @@ def main():
     
     if source_files == 0:
         print("✓ Source folder is empty, nothing to merge")
-        sys.exit(0)
+        return True
     
     # Step 3: Confirm before proceeding
-    response = input(f"\nProceed with merge? (yes/no): ").strip().lower()
-    if response != 'yes':
-        print("✗ Merge cancelled")
-        sys.exit(0)
+    if not skip_confirm:
+        response = input(f"\nProceed with merge? (yes/no): ").strip().lower()
+        if response != 'yes':
+            print("✗ Merge cancelled")
+            return False
     
     # Step 4: Run rsync
     if not rsync_merge():
-        sys.exit(1)
+        raise RuntimeError("rsync failed")
     
     # Step 5: Verify the merge
     verify_merge()
     
     # Step 6: Cleanup source
-    if not cleanup_source():
+    if not cleanup_source(skip_confirm=skip_confirm):
         print("\n⚠ Merge completed but source folder was not removed")
         print("You can manually remove it later or re-run this script")
-        sys.exit(1)
+        return False
     
     print(f"\n{'='*60}")
     print("✓ Merge and cleanup completed successfully!")
     print(f"{'='*60}")
+    return True
 
 if __name__ == "__main__":
     main()
